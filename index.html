@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrapping box – Custom box Fefco 409</title>
+    <style>
+        :root {
+            --primary-color: #4497B8;
+            --secondary-color: #59A2C0;
+            --background-color: #f0f0f0;
+            --text-color: #333;
+            --border-color: #ccc;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .calculator {
+            background-color: var(--background-color);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .calculator-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .calculator-item {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+        .calculator-results {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        .calculator-results h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .alert {
+            color: #e74c3c;
+            background-color: #fadbd8;
+            border: 1px solid #e74c3c;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        form {
+            margin-top: 30px;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button[type="submit"]:disabled {
+            background-color: #cccccc;
+            color: #666666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        button[type="submit"]:hover:not(:disabled) {
+            background-color: var(--secondary-color);
+        }
+        button[type="submit"]:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+        #loading-indicator {
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--secondary-color);
+            display: none;
+        }
+        .warning-message {
+            color: #e74c3c;
+            background-color: #fadbd8;
+            border: 1px solid #e74c3c;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wrapping box – Custom box Fefco 409</h1>
+    <div id="wbc-calcform" class="calculator" data-local-factor="1" data-global-factor="1.12">
+        <div class="calculator-fields">
+            <div class="calculator-item">
+                <label for="field-box-lengte">Length (mm)</label>
+                <input id="field-box-lengte" type="number" class="wbc-calc-field" required>
+            </div>
+            <div class="calculator-item">
+                <label for="field-box-breedte">Width (mm)</label>
+                <input id="field-box-breedte" type="number" class="wbc-calc-field" required>
+            </div>
+            <div class="calculator-item">
+                <label for="field-box-hoogte">Height (mm)</label>
+                <input id="field-box-hoogte" type="number" class="wbc-calc-field" required>
+            </div>
+            <div class="calculator-item">
+                <label for="field-box-aantal">Quantity</label>
+                <input id="field-box-aantal" type="number" class="wbc-calc-field" required>
+            </div>
+            <div class="calculator-item">
+                <label for="field-box-kwaliteit">Quality</label>
+                <select id="field-box-kwaliteit" class="wbc-calc-field" required>
+                    <option value="">Select quality</option>
+                    <option value="0.4">Single Wall 3mm</option>
+                    <option value="0.48">Single Wall 4mm</option>
+                    <option value="0.72">Double Wall 4.5mm</option>
+                    <option value="0.78">Double Wall 7mm</option>
+                </select>
+            </div>
+            <div class="calculator-item">
+                <label for="field-box-kleur">Color</label>
+                <select id="field-box-kleur" class="wbc-calc-field" required>
+                    <option value="">Select color</option>
+                    <option value="0">Brown-Brown</option>
+                    <option value="0.08">White-Brown</option>
+                </select>
+            </div>
+        </div>
+        <div class="calculator-results" id="wbc-prices">
+            <h3>Box Details</h3>
+            <p>Quality: <span id="wbc-detail-quality"></span></p>
+            <p>Color: <span id="wbc-detail-color"></span></p>
+            <p>Dimensions: <span id="wbc-price-length"></span> x <span id="wbc-price-width"></span> x <span id="wbc-price-height"></span> mm (L x W x H)</p>
+            <p>Quantity: <span id="wbc-price-qty"></span></p>
+            <h3>Pricing</h3>
+            <p>Price per unit (excl. VAT): €<span id="wbc-price-unit"></span></p>
+            <p>Total price (excl. VAT): €<span id="wbc-price-total"></span></p>
+        </div>
+
+        <form action="https://formspree.io/f/xwpezvep" method="POST">
+            <label for="company-name">Company Name:</label>
+            <input type="text" id="company-name" name="company-name" required>
+
+            <label for="phone-number">Phone Number:</label>
+            <input type="tel" id="phone-number" name="phone-number" required>
+
+            <label for="email-address">Email Address:</label>
+            <input type="email" id="email-address" name="email-address" required>
+
+            <input type="hidden" id="unit-price" name="unit-price">
+            <input type="hidden" id="total-price" name="total-price">
+            <input type="hidden" id="quantity" name="quantity">
+            <input type="hidden" id="dimensions" name="dimensions">
+            <input type="hidden" id="quality" name="quality">
+            <input type="hidden" id="color" name="color">
+
+            <div id="warning-message" class="warning-message">
+                Please fill in all fields to proceed.
+            </div>
+            <button type="submit" id="submit-request" disabled>Add to Cart</button>
+            <div id="loading-indicator">
+                Sending the form, please wait...
+            </div>
+        </form>
+    </div>
+
+    <script src="fefco-409-calculator.js"></script>
+</body>
+</html>

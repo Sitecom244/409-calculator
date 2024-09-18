@@ -59,23 +59,23 @@ function calcformCalculate() {
     }
 
     if (!(validateNumber(length) && validateNumber(width) && validateNumber(height) && validateNumber(quantity))) {
-        AlertMSG('Please enter valid numbers for all dimensions and quantity.');
+        AlertMSG('Voer geldige cijfers in voor alle afmetingen en aantallen.');
         return;
     }
     if (quantity < 1 || quantity >= 1001) {
-        AlertMSG('The price for less than 1 or 1000 or more boxes cannot be calculated online. Please request a quote.');
+        AlertMSG('De prijs voor meer dan 1.000 dozen kunnen wij niet online berekenen. Neem contact met ons op om hier een offerte voor te ontvangen.');
         return;
     }
     if (length + (2 * height) + 25 > 1790) {
-        AlertMSG('Format too large, please request a quote.');
+        AlertMSG('De afmetingen zijn te groot om de prijs online te berekenen. Neem contact met ons op om hier een offerte voor te ontvangen.');
         return;
     }
     if ((length + height + height < 600) && (quantity > 249)) {
-        AlertMSG('Please request a quote.');
+        AlertMSG('Voor deze afmetingen kunnen wij niet direct een prijs berkenen. Neem contact met ons op om hier een offerte voor te ontvangen.');
         return;
     }
     if ((height + height + height + width + width < 700) && (quantity > 249)) {
-        AlertMSG('Please request a quote.');
+        AlertMSG('Voor deze afmetingen kunnen wij niet direct een prijs berkenen. Neem contact met ons op om hier een offerte voor te ontvangen.');
         return;
     }
 

@@ -1,6 +1,6 @@
 // Pricing Variables
 const VAT_RATE = 21; // VAT percentage
-const GLOBAL_FACTOR = 1.12; // Global pricing factor (from data-global-factor)
+const GLOBAL_FACTOR = 1.05; // Global pricing factor (from data-global-factor)
 const LOCAL_FACTOR = 1; // Local pricing factor (from data-local-factor)
 const BASE_SURCHARGE = 0.20; // Base surcharge per unit
 const QUANTITY_SURCHARGE = 25; // Additional surcharge divided by quantity
